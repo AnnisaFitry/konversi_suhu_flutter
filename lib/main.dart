@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-//import 'package:converter/widget/input.dart';
+import 'package:konversi_suhu_flutter/widget/button.dart';
+import 'package:konversi_suhu_flutter/widget/hasil.dart';
+import 'package:konversi_suhu_flutter/widget/input.dart';
 
 void main() {
   runApp(MyApp()); //const
@@ -56,96 +57,10 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.all(5),
-                child: TextFormField(
-                  autofocus: true,
-                  controller: masukan,
-                  keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true, signed: false),
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    filled: true,
-                    hintText: 'Masukkan Suhu Dalam Celcius',
-                  ),
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Expanded(
-                      /*1*/
-
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          /*2*/
-
-                          Container(
-                            child: Text(
-                              'Suhu dalam Kelvin',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              '$kelvin',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      /*1*/
-
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          /*2*/
-
-                          Container(
-                            child: Text(
-                              'Suhu dalam Reamur',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              '$reamur',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(5),
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: convert,
-                  child: const Text(
-                    'Konvert Suhu',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+              input(masukan: masukan),
+              hasil(kelvin: kelvin, reamur: reamur),
+              button(
+                convert: convert,
               ),
             ],
           ),
@@ -154,97 +69,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-Widget input = Container(
-  margin: const EdgeInsets.all(5),
-  child: TextFormField(
-    autofocus: true,
-    //controller: masukan,
-    keyboardType:
-        const TextInputType.numberWithOptions(decimal: true, signed: false),
-    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-    textInputAction: TextInputAction.next,
-    decoration: const InputDecoration(
-      filled: true,
-      hintText: 'Masukkan Suhu Dalam Celcius',
-    ),
-  ),
-);
-
-Widget converter = Container(
-  margin: const EdgeInsets.all(5),
-  width: double.infinity,
-  height: 40,
-  child: ElevatedButton(
-    onPressed: () {},
-    child: const Text(
-      'Konvert Suhu',
-      style: TextStyle(color: Colors.white),
-    ),
-  ),
-);
-
-Widget hasil = Container(
-  child: Row(
-    children: [
-      Expanded(
-        /*1*/
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            /*2*/
-
-            Container(
-              child: Text(
-                'Suhu dalam Kelvin',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            Container(
-              child: Text(
-                '100',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      Expanded(
-        /*1*/
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            /*2*/
-
-            Container(
-              child: Text(
-                'Suhu dalam Reamur',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            Container(
-              child: Text(
-                '150',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ],
-  ),
-);
