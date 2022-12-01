@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+//import 'package:converter/widget/input.dart';
 
 void main() {
   runApp(MyApp()); //const
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // const MyApp({super.key});
+  TextEditingController masukan = new TextEditingController();
+
+  // state : value yang berubah ;
+  double masukanUser = 0;
+  double kelvin = 0;
+  double reamur = 0;
+  convert() {
+    setState(() {
+      masukanUser = double.parse(masukan.text);
+      kelvin = masukanUser + 273;
+      reamur = masukanUser * 0.8;
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -37,9 +56,97 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              input,
-              hasil,
-              converter,
+              Container(
+                margin: const EdgeInsets.all(5),
+                child: TextFormField(
+                  autofocus: true,
+                  controller: masukan,
+                  keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true, signed: false),
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    hintText: 'Masukkan Suhu Dalam Celcius',
+                  ),
+                ),
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      /*1*/
+
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          /*2*/
+
+                          Container(
+                            child: Text(
+                              'Suhu dalam Kelvin',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              '$kelvin',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      /*1*/
+
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          /*2*/
+
+                          Container(
+                            child: Text(
+                              'Suhu dalam Reamur',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              '$reamur',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(5),
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: convert,
+                  child: const Text(
+                    'Konvert Suhu',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -52,6 +159,7 @@ Widget input = Container(
   margin: const EdgeInsets.all(5),
   child: TextFormField(
     autofocus: true,
+    //controller: masukan,
     keyboardType:
         const TextInputType.numberWithOptions(decimal: true, signed: false),
     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -98,7 +206,7 @@ Widget hasil = Container(
             ),
             Container(
               child: Text(
-                '150',
+                '100',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
@@ -127,7 +235,7 @@ Widget hasil = Container(
             ),
             Container(
               child: Text(
-                '200',
+                '150',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
