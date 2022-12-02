@@ -18,13 +18,23 @@ class _MyAppState extends State<MyApp> {
 
   // state : value yang berubah ;
   double masukanUser = 0;
-  double kelvin = 0;
-  double reamur = 0;
+  String newValue = "Kelvin";
+  double hasil = 0;
+  var listItem = [
+    "Kelvin",
+    "Reamur",
+    "Fahrenheit",
+  ];
   convert() {
     setState(() {
       masukanUser = double.parse(masukan.text);
-      kelvin = masukanUser + 273;
-      reamur = masukanUser * 0.8;
+      if (newValue == "Kelvin") {
+        hasil = masukanUser + 273;
+      } else if (newValue == "Reamur") {
+        hasil = masukanUser * 0.8;
+      } else {
+        hasil = (1.8 * masukanUser) + 32;
+      }
     });
   }
 
@@ -58,10 +68,52 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               input(masukan: masukan),
-              hasil(kelvin: kelvin, reamur: reamur),
+              //hasil(kelvin: kelvin, reamur: reamur),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  DropdownButton(
+                    items: listItem.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    value: newValue,
+                    onChanged: (String? changeValue) {
+                      setState(() {
+                        newValue = changeValue!;
+                      });
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Hasil',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 36,
+                            ),
+                          ),
+                          Text(
+                            '$hasil',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 32,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               button(
                 convert: convert,
-              ),
+              )
             ],
           ),
         ),
